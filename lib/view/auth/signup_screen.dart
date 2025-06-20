@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_navigation/get_navigation.dart';
+import 'package:get/get.dart';
 import 'package:todo_list/constant/app_colors.dart';
 import 'package:todo_list/constant/app_icon.dart';
-import 'package:todo_list/user/home_screen.dart';
+import 'package:todo_list/controller/authcontroller.dart';
 import 'package:todo_list/view/auth/onboarding.dart';
 import 'package:todo_list/view/auth/signin_screen.dart';
 import 'package:todo_list/widget/button/common_button.dart';
@@ -18,17 +17,14 @@ class SignupScreen extends StatefulWidget {
 }
 
 class _SignupScreenState extends State<SignupScreen> {
-  TextEditingController emailcontroller = TextEditingController();
-  TextEditingController namecontroller = TextEditingController();
-  TextEditingController passwordcontroller = TextEditingController();
-  TextEditingController confirmpasswordcontroller = TextEditingController();
-  final _formKey = GlobalKey<FormState>();
+  final Authcontroller authController = Get.put(Authcontroller());
 
+  bool isloading = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Form(
-        key: _formKey,
+        key: authController.formKey,
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Column(
@@ -66,60 +62,53 @@ class _SignupScreenState extends State<SignupScreen> {
                 height: 30.h,
               ),
               CommonTextfield(
-                  // validator: (value) {
-                  //   if (value == '' || value == null) {
-                  //     return 'Please enter your Full Name';
-                  //   }
-                  //   return null;
-                  // },
-                  hintText: 'Enter your Full Name',
-                  controller: namecontroller),
+                validator: (Value) {
+                  if (Value == '' || Value == null) {
+                    return 'please enter your full name';
+                  }
+                  return null;
+                },
+                hintText: 'Enter your Full Name',
+                controller: authController.name,
+              ),
               SizedBox(
                 height: 25.h,
               ),
               CommonTextfield(
-                  // validator: (value) {
-                  //   if (value == '' || value == null) {
-                  //     return 'Please enter your email';
-                  //   }
-                  //   return null;
-                  // },
-                  hintText: 'Enter your Email address ',
-                  controller: emailcontroller),
+                validator: (Value) {
+                  if (Value == '' || Value == null) {
+                    return "please enter your email address";
+                  }
+                  return null;
+                },
+                hintText: 'Enter your Email address',
+                controller: authController.email,
+              ),
               SizedBox(
                 height: 25.h,
               ),
               CommonTextfield(
-                  // validator: (value) {
-                  //   if (value == '' || value == null) {
-                  //     return 'Please enter Create a Password';
-                  //   }
-                  //   return null;
-                  // },
-                  hintText: 'Create a Password',
-                  controller: passwordcontroller),
+                validator: (Value) {
+                  if (Value == '' || Value == null) {
+                    return 'please enter your password';
+                  }
+                  return null;
+                },
+                hintText: 'Create a Password',
+                controller: authController.password,
+              ),
               SizedBox(
                 height: 26.h,
               ),
-              CommonTextfield(
-                  // validator: (value) {
-                  //   if (value == '' || value == null) {
-                  //     return 'Please enter Confirm your Password';
-                  //   }
-                  //   return null;
-                  // },
-                  hintText: 'Confirm your Password',
-                  controller: confirmpasswordcontroller),
               SizedBox(
                 height: 98.h,
               ),
-              ComonButton(
-                  title: 'signup',
-                  onTap: () {
-                    // if (_formKey.currentState!.validate()) {
-                    Get.to(HomeScreen());
-                    // }
-                  }),
+              Obx(
+                () => ComonButton(
+                    title: 'signup',
+                    isLoding: authController.isloading.value,
+                    onTap: () => authController.signup()),
+              ),
               Padding(
                 padding: const EdgeInsets.only(left: 80, top: 40),
                 child: Row(
@@ -127,8 +116,8 @@ class _SignupScreenState extends State<SignupScreen> {
                     Text('Already have an account ? '),
                     GestureDetector(
                         onTap: () {
-                          Get.to(() => SigninScreen());
-                          // authController.isloading.value = false;
+                          Get.to(() => SignInScreen());
+                          isloading = false;
                         },
                         child: Text(
                           'Sign In',
@@ -146,4 +135,23 @@ class _SignupScreenState extends State<SignupScreen> {
       ),
     );
   }
+
+  // Future signup() async {
+  //   if (_formKey.currentState!.validate()) {
+  //     try {
+  //       setState(() {
+  //         isloading = true;
+  //       });
+  //       await FirebaseAuth.instance.createUserWithEmailAndPassword(
+  //           email: emailcontroller.text, password: passwordcontroller.text);
+  //       Get.to(HomeScreen());
+  //     } catch (e) {
+  //       Get.snackbar('error', e.toString());
+  //     } finally {
+  //       setState(() {
+  //         isloading = false;
+  //       });
+  //     }
+  //   }
+  // }
 }

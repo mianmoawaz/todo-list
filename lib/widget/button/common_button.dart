@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:todo_list/constant/app_colors.dart';
-import 'package:todo_list/utils/loading_util.dart';
 
 class ComonButton extends StatelessWidget {
   final String title;
@@ -21,7 +20,7 @@ class ComonButton extends StatelessWidget {
           alignment: Alignment.center,
           child: Center(
             child: isLoding == true
-                ? LoadingUtil.buttonLoading()
+                ? CircularProgressIndicator()
                 : Text(
                     title,
                     style: TextStyle(
@@ -31,7 +30,7 @@ class ComonButton extends StatelessWidget {
                   ),
           ),
           height: 44.h,
-          width: 200,
+          width: 200.w,
           decoration: BoxDecoration(color: AppColors.green)),
     );
   }

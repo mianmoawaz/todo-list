@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:todo_list/constant/app_colors.dart';
+import 'package:todo_list/constant/app_icon.dart';
 import 'package:todo_list/user/addto_list.dart';
 import 'package:todo_list/user/detail_screen.dart';
 import 'package:todo_list/user/profile_screen.dart';
@@ -45,8 +46,8 @@ class _HomeScreenState extends State<HomeScreen> {
           Column(
             children: [
               Container(
-                height: 300.h, // Responsive height
-                width: 500.h, // Responsive width
+                height: 300.h,
+                width: 500.h,
                 decoration: BoxDecoration(
                   color: AppColors.green,
                 ),
@@ -65,7 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 10), // Space between avatar and text
+                    SizedBox(height: 10),
                     Text(
                       'Welcome Fizayomi',
                       style: TextStyle(
@@ -104,36 +105,41 @@ class _HomeScreenState extends State<HomeScreen> {
                                 elevation: 1,
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(15)),
-                                child: Padding(
-                                  padding:
-                                      const EdgeInsets.only(top: 8, bottom: 8),
-                                  child: ListTile(
-                                    onTap: () {
-                                      Get.to(DetailScreen());
-                                    },
-                                    title: Text(
-                                      "Title of your tasks",
-                                      style: TextStyle(
-                                        fontSize: 17.sp,
-                                        fontWeight: FontWeight.w500,
-                                        color: Colors.white,
-                                      ),
+                                child:
+                                    // Padding(
+                                    //   padding:
+                                    //       const EdgeInsets.only(top: 8, bottom: 8),
+                                    //   child:
+                                    ListTile(
+                                  leading: CircleAvatar(
+                                    child: Icon(Icons.delete),
+                                    backgroundColor: AppColors.red,
+                                  ),
+                                  onTap: () {
+                                    Get.to(DetailScreen());
+                                  },
+                                  title: Text(
+                                    "Title of your tasks",
+                                    style: TextStyle(
+                                      fontSize: 17.sp,
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.white,
                                     ),
-                                    subtitle: Text(
-                                      "description of your tasks...",
-                                      style: TextStyle(
-                                        fontSize: 10.sp,
-                                        fontWeight: FontWeight.w500,
-                                        color: Colors.white,
-                                      ),
+                                  ),
+                                  subtitle: Text(
+                                    "description of your tasks...",
+                                    style: TextStyle(
+                                      fontSize: 10.sp,
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.white,
                                     ),
-                                    trailing: Text(
-                                      _getRandomTime(),
-                                      style: TextStyle(
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.w500,
-                                        color: Colors.white,
-                                      ),
+                                  ),
+                                  trailing: Text(
+                                    _getRandomTime(),
+                                    style: TextStyle(
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.white,
                                     ),
                                   ),
                                 ),

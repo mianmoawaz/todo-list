@@ -5,7 +5,6 @@ import 'package:get/get_navigation/get_navigation.dart';
 import 'package:todo_list/constant/app_colors.dart';
 import 'package:todo_list/view/auth/signin_screen.dart';
 
-
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
 
@@ -181,7 +180,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                           GestureDetector(
                             onTap: () {
-                              Get.to(SigninScreen());
+                              Get.to(SignInScreen());
                             },
                             child: Text('Logout'),
                           ),
